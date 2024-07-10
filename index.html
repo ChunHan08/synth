@@ -25,21 +25,22 @@
   </style>
 
   <body>
-    <div id="pad"></div>
-      <div id="label"><CLICK / DRAG</div>
+    <div id="pad">
+      <div id="label">CLICK / DRAG</div>
     </div>
   </body>
 
   <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.9/Tone.js">
-</script>
+    src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.9/Tone.js"></script>
+  
   <script>
     const synth = new Tone.Synth().toDestination();
-    var pad = document.getElementById("pad");
-    var label = document.getElementById("label");
+    var pad = document.getElementById('pad');
+    var label = document.getElementById('label');
     var dragging = false;
+    
     function getBackgroundColor(x){
-      if (dragging)
+      if (dragging) {
         let fraction = x/window.innerWidth;
         return "hsl("+(fraction*360)+", 100%, 50%)";
       }
@@ -63,9 +64,9 @@
     function up(event) {
       dragging = false;
       synth.triggerRelease();
-      label.innerHTML = "CLICK / DRAG";
+      label.innerHTML = 'CLICK / DRAG';
       label.style.color = getLabelColor(x);
-      pad.style.color = getBackgroundColor(x);
+      pad.style.background = getBackgroundColor(x);
     }
     function move(event) {
       if (dragging) {
@@ -73,13 +74,13 @@
         synth.setNote(x);
         label.innerHTML = Math.round(x) + 'Hz';
         label.style.color = getLabelColor(x);
-        pad.style.color = getBackgroundColor(x);
+        pad.style.background = getBackgroundColor(x);
       }
     }
 
-pad.addEventListner('pointerdown', down);
-pad.addEventListner('pointerup', up);
-pad.addEventListner('pointermove', move);
+    pad.addEventListener('pointerdown', down);
+    pad.addEventListener('pointerup', up);
+    pad.addEventListener('pointermove', move);
     
-    </script>
+  </script>
 </html>
